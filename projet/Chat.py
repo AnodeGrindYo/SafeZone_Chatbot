@@ -1,5 +1,6 @@
 import json
 import subprocess
+import re
 
 CONFIG_PATH = 'config.json'
 LLAMA_PATH = './model/llama.cpp'
@@ -38,12 +39,21 @@ class Chat:
     
     def create_query(self, user_text):
         color_option = '--color' if self.color else ''
+        # pre_prompt = (
+        #     "### System:\n"
+        #     "Vous êtes un chatbot conçu pour reconnaître et répondre aux cas de harcèlement "
+        #     "sexuel dans un environnement professionnel en France. Votre rôle est de fournir des "
+        #     "guides sur les étapes à suivre lorsque le harcèlement est identifié.\n"
+        #     "### User: "
+        # )
+        
         pre_prompt = (
-            "### System:\n"
-            "Vous êtes un chatbot conçu pour reconnaître et répondre aux cas de harcèlement "
-            "sexuel dans un environnement professionnel en France. Votre rôle est de fournir des "
-            "guides sur les étapes à suivre lorsque le harcèlement est identifié.\n"
-            "### User: "
+            "### System:Vous êtes un chatbot spécialisé dans la reconnaissance et l'accompagnement "
+            "des cas de harcèlement sexuel en milieu professionnel en France. Vous devez fournir "
+            "des informations précises et utiles lorsqu'un cas de harcèlement est signalé, en restant "
+            "concis et en évitant les discussions superflues. Si pertinent, vous devez diriger les "
+            "utilisateurs vers les ressources suivantes, en intégrant les liens dans des balises HTML :"
+            "- [INRS](https://www.inrs.fr/)- [AVFT](https://www.avft.org/)- [CFCV](https://cfcv.asso.fr/)### User: "
         )
         
         query_string = (
@@ -61,21 +71,19 @@ class Chat:
         completed_process = subprocess.run(query_string, shell=True, capture_output=True, text=True)
         output = completed_process.stdout
         print("LLAMA OUTPUT : " + output)
-        response_token_delimiter = "### Response: "
-        try:
-            parts = output.split(response_token_delimiter, 1)
-            if len(parts) == 2:
-                response = parts[1].strip()
-            else:
-                response = "Désolé, le bot s'en est allé prendre un café..." 
-            print("RESPONSE = " + response)
-            return response
-        except Exception as e:
-            print("Une erreur s'est produite :", str(e))
-            return "Erreur lors de l'exécution de la requête : " + stre(e)
-        
+        return self.extract_response(output)   
 
-    
+    def extract_response(self, output):        # Divise la chaîne en segments en utilisant les tokens comme délimiteurs        segments = re.split(r'(### System:|### User:|### Response:)', output)                # Trouve le premier segment qui commence par "### Response:" et récupère le texte qui le suit        for i, segment in enumerate(segments):            if segment == "### Response:":                response_text = segments[i + 1].strip()                return response_text  # Retourne le texte de la première réponse trouvée                        return None
+        # Divise la chaîne en segments en utilisant les tokens comme délimiteurs
+        segments = re.split(r'(### System:|### User:|### Response:)', output)
+        
+        # Trouve le premier segment qui commence par "### Response:" et récupère le texte qui le suit
+        for i, segment in enumerate(segments):
+            if segment == "### Response:":
+                response_text = segments[i + 1].strip()
+                return response_text  # Retourne le texte de la première réponse trouvée
+                
+        return "Désolé, le chatbot est parti prendre un café..."
         # self.process.stdin.write(query_string)
         # self.process.stdin.flush()
         # response = ""
