@@ -62,14 +62,19 @@ class Chat:
         output = completed_process.stdout
         print("LLAMA OUTPUT : " + output)
         response_token_delimiter = "### Response: "
-        parts = output.split(response_token_delimiter, 1)
-        if len(parts) == 2:
-            response = parts[1]
-        else:
-            response = "" 
-        print("RESPONSE = " + response)
-        return response
-    
+        try:
+            parts = output.split(response_token_delimiter, 1)
+            if len(parts) == 2:
+                response = parts[1].strip()
+            else:
+                response = "Désolé, le bot s'en est allé prendre un café..." 
+            print("RESPONSE = " + response)
+            return response
+        except Exception as e:
+            print("Une erreur s'est produite :", str(e))
+            return "Erreur lors de l'exécution de la requête : " + stre(e)
+        
+
     
         # self.process.stdin.write(query_string)
         # self.process.stdin.flush()
