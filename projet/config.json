@@ -1,0 +1,9 @@
+{
+  "MODEL_PATH": "./model/llama.cpp/models/model.13B_chat.gguf",
+  "THREADS": 10,
+  "COLOR": false,
+  "CONTEXT_SIZE": 4096,
+  "TEMPERATURE": 0.7,
+  "REPEAT_PENALTY": 1.1,
+  "NUMBER_OF_TOKEN_TO_PREDICT": 64
+}
