@@ -1,135 +1,976 @@
-<!DOCTYPE html>
-<html lang="fr">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SafeZone Chat</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="/static/styles.css"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Untitled</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
 </head>
+
 <body>
-    <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: scroll;"></div>
-    <input type="text" id="messageInput" placeholder="Tapez votre message ici..." style="width: 80%;">
-    <button id="sendBtn">Envoyer le message</button>
-
+  <style>
+    body {
+      background-color: rgb(238, 244, 247);
+      font-family: 'Arial', sans-serif;
+    }
+    body, html, .container, .row, .col-md-4, .col-md-8 {
+      margin: 0;
+      padding: 0;
+    }
+    .content-section {
+      display: none;
+    }
+    
+    .content-section.active {
+      display: block;
+    }
+    
+    .scrollable {
+      height: 300px;
+      overflow-y: scroll;
+    }
+    
+    /* Navbar-Fixed-Side1*/
+    @media (max-width: 768px) {
+      .navbar-fixed-side {
+        margin-left:-15px;
+        margin-right:-15px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side {
+        position:fixed;
+        margin:0 -15px;
+        height:100vh;
+        width:inherit;
+        overflow:auto;
+        border-top-width:0;
+        border-bottom-width:0;
+        border-radius:0;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .container, .navbar-fixed-side .container-fluid {
+        width:auto;
+        padding-left:0;
+        padding-right:0;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-header {
+        float:none;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-brand {
+        height:auto;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side > .container .navbar-brand, .navbar-fixed-side > .container-fluid .navbar-brand {
+        margin-left:0;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-collapse {
+        width:100%;
+        border-top:1px solid #e7e7e7;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav {
+        float:none;
+        margin:0 -15px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav > li {
+        float:none;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav > li > a {
+        padding-top:10px;
+        padding-bottom:10px;
+        border-bottom:1px solid #e7e7e7;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-form {
+        margin:0;
+        margin-left:-15px;
+        margin-right:-15px;
+        padding:10px 15px;
+        border-bottom:1px solid #e7e7e7;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-text {
+        float:none;
+        margin-left:0;
+        margin-right:0;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-left, .navbar-fixed-side .navbar-right {
+        float:none !important;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav .dropdown-menu {
+        position:static;
+        float:none;
+        width:auto;
+        margin-top:0;
+        background-color:transparent;
+        border:0;
+        box-shadow:none;
+        border-bottom:1px solid #e7e7e7;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav .dropdown-menu > li > a, .navbar-fixed-side .navbar-nav .dropdown-menu .dropdown-header {
+        padding:5px 15px 5px 25px;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav .dropdown-menu > li > a {
+        line-height:20px;
+        color:#777;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav .dropdown-menu > li > a:hover, .navbar-fixed-side .navbar-nav .dropdown-menu > li > a:focus {
+        background-image:none;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav .dropdown-menu > .active > a {
+        background-color:#e7e7e7;
+        color:#555;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .navbar-nav > li > a:hover, .navbar-fixed-side .navbar-nav > li > a:focus, .navbar-fixed-side .navbar-nav .dropdown-menu > li > a:hover, .navbar-fixed-side .navbar-nav .dropdown-menu > li > a:focus {
+        background-color:#f0f0f0;
+        color:#333;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .dropdown > .dropdown-toggle, .navbar-fixed-side .dropdown-menu > .dropdown-header {
+        background-color:transparent !important;
+        color:#9d9d9d !important;
+        cursor:default;
+        font-size:0.8em;
+        text-transform:uppercase;
+        border-bottom:none;
+        padding-bottom:0;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .dropdown-toggle .caret {
+        display:none;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side .dropdown-menu {
+        display:block;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .navbar-collapse, .navbar-fixed-side.navbar-inverse .navbar-nav > li > a, .navbar-fixed-side.navbar-inverse .navbar-form, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu {
+        border-color:#363636;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .divider {
+        background-color:#363636;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li > a {
+        color:#9d9d9d;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > .active > a {
+        background-color:#090909;
+        color:#fff;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .navbar-nav > li:not(.active) > a:hover, .navbar-fixed-side.navbar-inverse .navbar-nav > li:not(.active) > a:focus, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:focus {
+        background-color:#2f2f2f;
+        color:#fff;
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .navbar-fixed-side.navbar-inverse .dropdown > .dropdown-toggle {
+        color:#777777 !important;
+      }
+    }
+    
+    /* Home section */
+    .features-boxed {
+      color:#313437;
+      background-color:#eef4f7;
+    }
+    
+    .features-boxed p {
+      color:#7d8285;
+    }
+    
+    .features-boxed h2 {
+      font-weight:bold;
+      margin-bottom:40px;
+      padding-top:40px;
+      color:inherit;
+    }
+    
+    @media (max-width:767px) {
+      .features-boxed h2 {
+        margin-bottom:25px;
+        padding-top:25px;
+        font-size:24px;
+      }
+    }
+    
+    .features-boxed .intro {
+      font-size:16px;
+      max-width:500px;
+      margin:0 auto;
+    }
+    
+    .features-boxed .intro p {
+      margin-bottom:0;
+    }
+    
+    .features-boxed .features {
+      padding:50px 0;
+    }
+    
+    .features-boxed .item {
+      text-align:center;
+    }
+    
+    .features-boxed .item .box {
+      text-align:center;
+      padding:30px;
+      background-color:#fff;
+      margin-bottom:30px;
+    }
+    
+    .features-boxed .item .icon {
+      font-size:60px;
+      color:#1485ee;
+      margin-top:20px;
+      margin-bottom:35px;
+    }
+    
+    .features-boxed .item .name {
+      font-weight:bold;
+      font-size:18px;
+      margin-bottom:8px;
+      margin-top:0;
+      color:inherit;
+    }
+    
+    .features-boxed .item .description {
+      font-size:15px;
+      margin-top:15px;
+      margin-bottom:20px;
+    }
+    
+    
+    /* Chatbot */
+    #chat-box {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      height: 500px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    
+    #inputContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    #messageInput {
+      width: 70%; /* Réduisez la largeur de la zone de saisie si nécessaire */
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    
+    #sendBtn {
+      width: 20%; /* Réduisez la largeur du bouton */
+      margin-left: 10px; /* Ajoutez un espace entre la zone de saisie et le bouton */
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background-color: #b865eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    #sendBtn:hover {
+      background-color: #ac6ef6;
+    }
+    
+    .chat-message {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 10px;
+    }
+    
+    .chat-message.user {
+      background-color: #b865eb;
+      color: white;
+      text-align: right;
+      margin-left: 20%;
+    }
+    
+    .chat-message.server {
+      background-color: #f1f1f1;
+      text-align: left;
+      margin-right: 20%;
+    }
+    
+    @keyframes bounceIn {
+      0% {
+        transform: translateY(-40px);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    .bounce-in {
+      animation: bounceIn 0.5s ease both;
+      display: inline-block;
+      transform-origin: bottom;
+    }
+    
+    
+    /* Messaging */
+    .unread {
+      background-color: #f8d7da;
+    }
+  </style>
+  <div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="col-sm-3 col-lg-2">
+            <nav class="navbar navbar-inverse navbar-fixed-side">
+              <div class="container">
+                <div class="navbar-header">
+                  <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="./">SafeZone</a></div>
+                  <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                      <li class="active"><a href="#" data-target="home-content">Home</a></li>
+                      <li><a href="#" data-target="chatbot-content">Chatbot</a></li>
+                      <li><a href="#" data-target="membres-content">Les Membres</a></li>
+                      <li><a href="#" data-target="messagerie-content">Messagerie</a></li>
+                      <li><a href="#" data-target="qui-contacter-content">Qui Contacter</a></li>
+                      <li><a href="#" data-target="parametres-content">Paramètres</a></li>
+                      <li><a href="#" data-target="besoin-daide-content">Besoin d'aide ?</a></li>
+                    </ul>
+                    
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="col-md-8">
+              <!-- Section Home -->
+              <div id="home-content" class="content-section active">
+                <!-- ...contenu de la section Home... -->
+                <div class="features-boxed">
+                  <div class="container">
+                    <div class="intro">
+                      <h2 class="text-center">Home</h2>
+                    </div>
+                    <div class="row features">
+                      <div class="col-md-4 col-sm-6 item">
+                        <div class="box"><i class="fa fa-balance-scale icon" style="color:#ac6ef6;"></i>
+                          <h3 class="name">Les lois</h3>
+                          <p class="description"><p><b>la France a adopté des mesures strictes pour éradiquer le harcèlement sexuel dans le milieu professionnel. Ces lois visent à créer un environnement respectueux où chacun peut travailler sans craindre le harcèlement.</b></p>
+                          <ul>
+                            <li><b>Code du travail (Article L1153-1) :</b> Définit le harcèlement sexuel comme des propos ou comportements à connotation sexuelle répétés portant atteinte à la dignité ou créant une situation intimidante, hostile ou offensante.</li>
+                            <li><b>Code pénal (Article 222-33) :</b> Prévoit des peines pouvant aller jusqu'à deux ans d'emprisonnement et 30 000 euros d'amende pour les auteurs de harcèlement sexuel, avec des sanctions plus sévères en cas de circonstances aggravantes.</li>
+                            <li><b>Loi du 6 août 2012 :</b> Renforce les sanctions contre le harcèlement sexuel au travail, établissant des peines plus sévères et clarifiant les définitions pour assurer une meilleure protection des victimes.</li>
+                            <li><b>Protection des victimes :</b> Les lois en France garantissent l'anonymat des plaignants et interdisent toute forme de représailles contre les victimes de harcèlement sexuel.</li>
+                            <li><b>Responsabilité des employeurs :</b> Les employeurs sont tenus de protéger leurs employés contre le harcèlement sexuel en mettant en place des mesures de prévention, de formation et de sensibilisation.e.</li>
+                          </ul></p>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-6 item">
+                        <div class="box"><i class="fa fa-pie-chart icon" style="color:#ac6ef6;"></i>
+                          <h3 class="name">Les statistiques</h3>
+                          <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.</p>
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-6 item">
+                        <div class="box"><i class="glyphicon glyphicon-list-alt icon" style="color:#ac6ef6;"></i>
+                          <h3 class="name">Comportement à adopter</h3>
+                          <p class="description"><p>
+                            <b>La prévention du harcèlement sexuel au travail implique plusieurs étapes clés. </b>
+                            <ul>
+                              <li>Tout d'abord, il est essentiel de sensibiliser les employés en organisant des séances de formation régulières sur les comportements appropriés et inappropriés sur le lieu de travail. </li>
+                              <li>les employeurs doivent établir des politiques claires et accessibles concernant le harcèlement sexuel, comprenant des définitions précises et des procédures de signalement. </li>
+                              <li>
+                                Il est crucial de créer un environnement où les employés se sentent en confiance pour signaler le harcèlement, en mettant en place des mécanismes de signalement confidentiels et accessibles.
+                                <br>
+                                <ul>
+                                  <li>Lorsqu'un rapport est fait, il est impératif de mener une enquête approfondie et impartiale pour établir les faits.</li>
+                                  <li>Les sanctions appropriées doivent être prises en cas de harcèlement avéré, et les victimes ainsi que les témoins doivent être protégés contre toute forme de représailles.</li>
+                                  <li>Les entreprises doivent offrir un soutien aux victimes, qu'il s'agisse de conseils psychologiques ou juridiques.</li>
+                                </ul>
+                              </li>
+                              <li>Enfin, un suivi régulier de l'efficacité des politiques et des formations doit être effectué pour s'assurer que l'entreprise reste proactive dans la prévention du harcèlement sexuel.</li>
+                            </ul>
+                          </p></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Section Chatbot -->
+              <div id="chatbot-content" class="content-section">
+                <!-- ...contenu de la section Chatbot... -->
+                <div class="container">
+                  <div class="intro">
+                    <h2 class="text-center">Chatbot</h2>
+                  </div>
+                  <div id="chat-box" style="border: 1px solid #ccc; padding: 10px; height: 80vh; overflow-y: scroll;"></div>
+                  <div id="inputContainer">
+                    <input type="text" id="messageInput" placeholder="Tapez votre message ici..." style="width: 80%;">
+                    <button id="sendBtn"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Section Membres -->
+              <div id="membres-content" class="content-section">
+                <!-- ...contenu de la section Membres... -->
+                <div class="container">
+                  <div class="intro">
+                    <h2 class="text-center">Les Membres</h2>
+                  </div>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Photo</th>
+                        <th>Prénom Nom</th>
+                        <th>Fonction</th>
+                        <th>Status</th>
+                        <th>Employed</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Salma Haimoud</strong><br>
+                          salma.haimoud@example.com
+                        </td>
+                        <td>Experte en tout</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>06/07/2018</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Salma Belsany</strong><br>
+                          salma.belsany@example.com
+                        </td>
+                        <td>Experte en tout</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>22/11/2019</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Ilhan Huret</strong><br>
+                          ilhan.huret@example.com
+                        </td>
+                        <td>Expert en tout</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>14/03/2017</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Adrien Godoy</strong><br>
+                          adrien.godoy@example.com
+                        </td>
+                        <td>Expert en tout</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>05/09/2020</td>
+                      </tr>        
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Jean Dupont</strong><br>
+                          jean.dupont@example.com
+                        </td>
+                        <td>Directeur</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>01/01/2020</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Marc Durand</strong><br>
+                          marc.durand@example.com
+                        </td>
+                        <td>Manager</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>15/03/2021</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Sophie Martin</strong><br>
+                          sophie.martin@example.com
+                        </td>
+                        <td>Analyste</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>12/04/2019</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Pierre Lemoine</strong><br>
+                          pierre.lemoine@example.com
+                        </td>
+                        <td>Ingénieur</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>08/07/2020</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Anne Dupuis</strong><br>
+                          anne.dupuis@example.com
+                        </td>
+                        <td>Chargée de projets</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>22/10/2018</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>François Mercier</strong><br>
+                          francois.mercier@example.com
+                        </td>
+                        <td>Responsable RH</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>05/11/2017</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Lucie Moreau</strong><br>
+                          lucie.moreau@example.com
+                        </td>
+                        <td>Designer</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>03/06/2021</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Valérie Leroux</strong><br>
+                          valerie.leroux@example.com
+                        </td>
+                        <td>Architecte</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>18/09/2015</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Christophe Dufour</strong><br>
+                          christophe.dufour@example.com
+                        </td>
+                        <td>Commercial</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>24/05/2019</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Nathalie Petit</strong><br>
+                          nathalie.petit@example.com
+                        </td>
+                        <td>Responsable Marketing</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>07/02/2018</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Guillaume Lefevre</strong><br>
+                          guillaume.lefevre@example.com
+                        </td>
+                        <td>Technicien</td>
+                        <td><span class="badge bg-secondary">Offline</span></td>
+                        <td>29/08/2022</td>
+                      </tr>
+                      <tr>
+                        <td><i class="fa fa-user-circle fa-2x" aria-hidden="true"></i></td>
+                        <td>
+                          <strong>Caroline Hebert</strong><br>
+                          caroline.hebert@example.com
+                        </td>
+                        <td>Secrétaire</td>
+                        <td><span class="badge bg-success">Online</span></td>
+                        <td>15/04/2021</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              
+              <!-- Section Messagerie -->
+              <div id="messagerie-content" class="content-section" style="height: 100vh;">
+                <!-- <h1>Messagerie</h1> -->
+                <!-- ...contenu de la section Messagerie... -->
+                <div class="container" style="height: 100%;">
+                  <div class="container mt-5" style="height: 100%;">
+                    <div class="intro">
+                      <h2 class="text-center">Messagerie</h2>
+                    </div>
+                    <div class="row">
+                      <!-- Colonne de gauche : Liste de contacts -->
+                      <div class="col-md-4">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Rechercher...">
+                        </div>
+                        <div class="list-group scrollable">
+                          <!-- ... Contacts ... -->
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Jean Dupont </strong><br>
+                            jean.dupont@example.com
+                            <span class="bg-danger text-white rounded-pill p-1">3</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Louise Morel </strong><br>
+                            louise.morel@example.com
+                            <span class="bg-danger text-white rounded-pill p-1">5</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Philippe Lemoine </strong><br>
+                            philippe.lemoine@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Marie Lefevre </strong><br>
+                            marie.lefevre@example.com
+                            <span class="bg-danger text-white rounded-pill p-1">2</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Henri Pires </strong><br>
+                            henri.pires@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Amélie Marchand </strong><br>
+                            amelie.marchand@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Julien Barbier </strong><br>
+                            julien.barbier@example.com
+                            <span class="bg-danger text-white rounded-pill p-1">1</span>
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Clémence Dupuis </strong><br>
+                            clemence.dupuis@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Alexandre Hebert </strong><br>
+                            alexandre.hebert@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Fanny Lemoine </strong><br>
+                            fanny.lemoine@example.com
+                          </a>
+                          <a href="#" class="list-group-item list-group-item-action">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
+                            <strong> Patrick Lemoine </strong><br>
+                            patrick.lemoine@example.com
+                            <span class="bg-danger text-white rounded-pill p-1">4</span>
+                          </a>
+                        </div>
+                      </div>
+                      
+                      <!-- Colonne de droite : Contenu des messages -->
+                      <div class="col-md-8 d-flex flex-column" style="height: 100vh;">
+                        <div class="border p-3 mb-3 message-content">
+                          <!-- ... Messages ... -->
+                          <div class="scrollable border p-3 mb-3">
+                            <!-- Contenu des messages -->
+                            <p><strong>Vous</strong><br>Bonjour Jean, je me sens mal à l'aise à propos de certaines remarques et actions de la part d'un collègue. Je ne sais pas quoi faire.</p>
+                            <p><strong>Jean Dupont</strong><br>Bonjour, je suis vraiment désolé d'entendre cela. Il est important d'aborder cette question. Je suis là pour vous aider. Pouvez-vous me donner plus de détails sur ce qui s'est passé ?</p>
+                            <p><strong>Vous</strong><br>Il fait souvent des commentaires inappropriés sur mon apparence et il m'a touché à quelques reprises sans mon consentement.</p>
+                            <p><strong>Jean Dupont</strong><br>C'est inacceptable. Avez-vous parlé de cela à quelqu'un d'autre dans votre entreprise ?</p>
+                            <p><strong>Vous</strong><br>Non, j'ai peur des représailles.</p>
+                            <p><strong>Jean Dupont</strong><br>Je comprends vos inquiétudes. Il est crucial de documenter chaque incident. Je vous recommande de garder un journal des interactions avec ce collègue. Cela pourrait être utile plus tard.</p>
+                            <p><strong>Vous</strong><br>Ok, je vais commencer à le faire. Merci pour vos conseils.</p>
+                            <p><strong>Jean Dupont</strong><br>Vous êtes le bienvenu. N'hésitez pas à me contacter à tout moment si vous avez besoin de plus d'aide ou si vous voulez parler de la situation. Votre sécurité et votre bien-être sont la priorité.</p>
+                            <p><strong>Vous</strong><br>Merci Jean, je vous contacterai si nécessaire.</p>
+                            <p><strong>Jean Dupont</strong><br>Prenez soin de vous. Nous surmonterons cela ensemble.</p>            
+                          </div>
+                        </div>
+                        <div class="input-group">
+                          <textarea class="form-control message-input" placeholder="Tapez votre message..." style="resize: none; width: 95%;  height: 2.8em;"></textarea>
+                          <div class="input-group-append">
+                            <button class="btn" type="button" style="background-color: #b865eb; height: 2.8em;">
+                              <i class="fa fa-paper-plane text-white" style="line-height: inherit;"></i>
+                            </button>
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Section Qui contacter -->
+              <div id="qui-contacter-content" class="content-section">
+                <!-- <h1>Qui Contacter</h1> -->
+                <!-- ...contenu de la section Qui contacter... -->
+                <div class="container">
+                  <div class="intro">
+                    <h2 class="text-center">Qui Contacter ?</h2>
+                  </div>
+                  
+                  <div class="row">
+                    <!-- Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card" style="height: 350px; display: flex; flex-direction: column; justify-content: center;">
+                            <a href="https://www.avft.org/" target="_blank" style="margin: 50px auto;">
+                                <img src="https://www.avft.org/wp-content/uploads/2020/03/AVFT_LOGO_120.png" class="card-img-top" alt="Logo AVFT" style="width:100px;">
+                            </a>
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    <i class="fa fa-phone" aria-hidden="true"></i> 01 45 84 24 24 <br>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:contact@avft.org">contact@avft.org</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card" style="height: 350px; display: flex; flex-direction: column; justify-content: center;">
+                            <a href="https://enavanttoutes.fr" target="_blank" style="margin: 50px auto;">
+                                <img src="https://enavanttoutes.fr/wp-content/uploads/2023/01/logo-EAT-e1687861844210.webp" class="card-img-top" alt="Logo En Avant Toutes" style="width:100px;">
+                            </a>
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i> <a href="mailto:contact@enavanttoutes.fr">contact@enavanttoutes.fr</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card" style="height: 350px; display: flex; flex-direction: column; justify-content: center;">
+                            <a href="https://solidaritefemmes.org/" target="_blank" style="margin: 50px auto;">
+                                <img src="https://yt3.googleusercontent.com/iovNVvq-p8U0ueMZUkyUhksBCJ_nHdKcWc6ysGu4L1S17ZCPf4JdPhtJHOqvvaCVEYB-90uVRg=s900-c-k-c0x00ffffff-no-rj" class="card-img-top" alt="Logo Solidarité Femmes" style="width:100px;">
+                            </a>
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    <i class="fa fa-phone" aria-hidden="true"></i> 3919
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Section Paramètres -->
+              <div id="parametres-content" class="content-section">
+                <h1>Paramètres</h1>
+                <!-- ...contenu de la section Paramètres... -->
+                <div class="container">
+                  <!-- Onglets -->
+                  <ul class="nav nav-tabs">
+                      <li class="active"><a data-toggle="tab" href="#accountSettings">Account Settings</a></li>
+                      <li><a data-toggle="tab" href="#loginSecurity">Logins & Security</a></li>
+                      <li><a data-toggle="tab" href="#notifications">Notifications</a></li>
+                      <li><a data-toggle="tab" href="#interface">Interface</a></li>
+                  </ul>
+          
+                  <!-- Contenu des onglets -->
+                  <div class="tab-content">
+                      <!-- Onglet Account Settings -->
+                      <div id="accountSettings" class="tab-pane fade in active">
+                          <!-- Drag & Drop pour la photo -->
+                          <div style="border: 2px dashed #ccc; text-align: center; padding: 50px; margin-bottom: 20px;">
+                              Drag & Drop your photo here
+                          </div>
+          
+                          <!-- Formulaire -->
+                          <form>
+                              <div class="form-group">
+                                  <label for="firstName">Nom</label>
+                                  <input type="text" class="form-control" id="firstName" placeholder="Nom">
+                              </div>
+                              <div class="form-group">
+                                  <label for="lastName">Prénom</label>
+                                  <input type="text" class="form-control" id="lastName" placeholder="Prénom">
+                              </div>
+                              <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input type="email" class="form-control" id="email" placeholder="Email">
+                              </div>
+                              <div class="form-group">
+                                  <label for="phoneNumber">Numéro de téléphone</label>
+                                  <input type="text" class="form-control" id="phoneNumber" placeholder="Numéro de téléphone">
+                              </div>
+                              <div class="form-group">
+                                  <label for="bio">Bio</label>
+                                  <textarea class="form-control" id="bio" rows="3" placeholder="Bio"></textarea>
+                              </div>
+                              <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                              <button type="reset" class="btn btn-secondary">Reset</button>
+                          </form>
+                      </div>
+          
+                      <!-- Onglets vides pour Login & Security, Notifications et Interface -->
+                      <div id="loginSecurity" class="tab-pane fade"></div>
+                      <div id="notifications" class="tab-pane fade"></div>
+                      <div id="interface" class="tab-pane fade"></div>
+                  </div>
+              </div>
+              </div>
+              
+              <!-- Section Besoin d'aide ? -->
+              <div id="besoin-daide-content" class="content-section">
+                <h1>Besoin d'aide ?</h1>
+                <!-- ...contenu de la section Besoin d'aide ?... -->
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <script>
-        // document.getElementById('sendBtn').addEventListener('click', async () => {
-        //     const message = document.getElementById('messageInput').value;
-        //     const response = await fetch('http://127.0.0.1:8000/send_message/', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({message: message}),
-        //     });
-        //     const data = await response.json();
-        //     document.getElementById('chat-box').innerHTML += `<p class="chat-message user"><strong>Vous :</strong> ${message}</p>`;
-        //     document.getElementById('chat-box').innerHTML += `<p class="chat-message server"><strong>SafeBot :</strong> ${data.response}</p>`;
-        //     document.getElementById('messageInput').value = '';
-        // });
-
-        // utiliser la touche "entrée" pour envoyer le message
-        document.getElementById('messageInput').addEventListener('keypress', async (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();  // Empêche le retour à la ligne lors de l'appui sur Entrée
-                sendMessage();
-            }
+      $(document).ready(function(){
+        $('.nav li a').on('click', function(e){
+          e.preventDefault();  // Empêche le comportement par défaut du lien
+          $('.nav li').removeClass('active');  // Retire la classe 'active' des liens du menu
+          $(this).parent().addClass('active');  // Ajoute la classe 'active' au lien cliqué
+          var targetSection = $(this).attr('data-target');  // Obtient l'ID de la section cible de l'attribut 'data-target'
+          $('.content-section').hide();  // Cache toutes les sections
+          $('#' + targetSection).show();  // Affiche la section cible
         });
-
-        function scrollToBottom() {
-            const chatBox = document.getElementById('chat-box');
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        async function sendMessage() {
-            const message = document.getElementById('messageInput').value;
-            document.getElementById('chat-box').innerHTML += `<p class="chat-message user"><strong>Vous :</strong> ${message}</p>`;
-            scrollToBottom();  // Scroll vers le bas après l'ajout du message de l'utilisateur
-            document.getElementById('messageInput').value = '';  // Efface le champ de saisie
-
-            const loadingMessage = `<p class="chat-message server" id="loading"><strong>SafeBot :</strong> <em>...en train d'écrire</em></p>`;
-            document.getElementById('chat-box').innerHTML += loadingMessage;
-            scrollToBottom();  // Scroll vers le bas pour montrer l'animation de chargement
-
-            const response = await fetch('http://127.0.0.1:8000/send_message/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({message: message}),
-            });
-            const data = await response.json();
-            document.getElementById('loading').remove();  // Supprime l'animation de chargement
-            document.getElementById('chat-box').innerHTML += `<p class="chat-message server"><strong>SafeBot :</strong> ${data.response}</p>`;
-            scrollToBottom();  // Scroll vers le bas après l'ajout de la réponse du bot
-        }
-
-        document.getElementById('sendBtn').addEventListener('click', sendMessage);
-
-
-
+      });
     </script>
-    <style>
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-#chat-box {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  height: 500px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-}
-
-#messageInput {
-  width: 75%;
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-}
-
-#sendBtn {
-  width: 20%;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-#sendBtn:hover {
-  background-color: #0056b3;
-}
-
-.chat-message {
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 10px;
-}
-
-.chat-message.user {
-  background-color: #007bff;
-  color: white;
-  text-align: right;
-  margin-left: 20%;
-}
-
-.chat-message.server {
-  background-color: #f1f1f1;
-  text-align: left;
-  margin-right: 20%;
-}
-
-    </style>
-</body>
-</html>
+    <script>
+      // utiliser la touche "entrée" pour envoyer le message
+      document.getElementById('messageInput').addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();  // Empêche le retour à la ligne lors de l'appui sur Entrée
+          sendMessage();
+        }
+      });
+      
+      function scrollToBottom() {
+        const chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+      
+      async function sendMessage() {
+        const message = document.getElementById('messageInput').value;
+        document.getElementById('chat-box').innerHTML += `<p class="chat-message user"><strong>Vous :</strong> ${message}</p>`;
+        scrollToBottom();  // Scroll vers le bas après l'ajout du message de l'utilisateur
+        document.getElementById('messageInput').value = '';  // Efface le champ de saisie
+        
+        const loadingMessage = `<p class="chat-message server bounce-in" id="loading"><strong>SafeBot :</strong> <em>...en train d'écrire</em></p>`;
+        document.getElementById('chat-box').innerHTML += loadingMessage;
+        scrollToBottom();  // Scroll vers le bas pour montrer l'animation de chargement
+        
+        const response = await fetch('https://0d1d-2a01-cb19-8584-4e00-782e-500f-aaab-2ca6.ngrok-free.app/send_message/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({message: message}),
+        });
+        const data = await response.json();
+        document.getElementById('loading').remove();  // Supprime l'animation de chargement
+        document.getElementById('chat-box').innerHTML += `<p class="chat-message server"><strong>SafeBot :</strong> ${data.response}</p>`;
+        scrollToBottom();  // Scroll vers le bas après l'ajout de la réponse du bot
+      }
+      
+      document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    </script>
+  </body>
+  
+  </html>
