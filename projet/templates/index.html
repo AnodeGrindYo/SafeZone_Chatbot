@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Untitled</title>
+  <title>SafeZone</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -43,6 +44,16 @@
         margin-left:-15px;
         margin-right:-15px;
       }
+    }
+
+    .navbar-inverse {
+      background-image: none !important;
+      background-color: whitesmoke !important;
+      color: #ac6ef6 !important;
+    }
+
+    .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+      background-color: #ac6ef6 !important;
     }
     
     @media (min-width: 768px) {
@@ -158,7 +169,7 @@
     @media (min-width: 768px) {
       .navbar-fixed-side .navbar-nav .dropdown-menu > li > a {
         line-height:20px;
-        color:#777;
+        color:#ccc;
       }
     }
     
@@ -171,7 +182,7 @@
     @media (min-width: 768px) {
       .navbar-fixed-side .navbar-nav .dropdown-menu > .active > a {
         background-color:#e7e7e7;
-        color:#555;
+        color:#ac6ef6;
       }
     }
     
@@ -185,7 +196,7 @@
     @media (min-width: 768px) {
       .navbar-fixed-side .dropdown > .dropdown-toggle, .navbar-fixed-side .dropdown-menu > .dropdown-header {
         background-color:transparent !important;
-        color:#9d9d9d !important;
+        color:#ac6ef6 !important;
         cursor:default;
         font-size:0.8em;
         text-transform:uppercase;
@@ -214,7 +225,7 @@
     
     @media (min-width: 768px) {
       .navbar-fixed-side.navbar-inverse .divider {
-        background-color:#363636;
+        background-color:#ac6ef6;
       }
     }
     
@@ -227,13 +238,13 @@
     @media (min-width: 768px) {
       .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > .active > a {
         background-color:#090909;
-        color:#fff;
+        color:#ac6ef6;
       }
     }
     
     @media (min-width: 768px) {
       .navbar-fixed-side.navbar-inverse .navbar-nav > li:not(.active) > a:hover, .navbar-fixed-side.navbar-inverse .navbar-nav > li:not(.active) > a:focus, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:hover, .navbar-fixed-side.navbar-inverse .navbar-nav .dropdown-menu > li:not(.active) > a:focus {
-        background-color:#2f2f2f;
+        background-color:#9850f0;
         color:#fff;
       }
     }
@@ -400,6 +411,7 @@
     .unread {
       background-color: #f8d7da;
     }
+
   </style>
   <div>
     <div class="container">
@@ -407,18 +419,28 @@
         <div class="col-md-4">
           <div class="col-sm-3 col-lg-2">
             <nav class="navbar navbar-inverse navbar-fixed-side">
+              
               <div class="container">
-                <div class="navbar-header">
-                  <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="./">SafeZone</a></div>
+                <div class="navbar-header" style="display: flex; justify-content: center; align-items: center; height: 150px;">
+                  <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </button>
+                    <a class="navbar-brand" href="./">
+                        <img src="https://cdn.discordapp.com/attachments/1160907035311886339/1162056047561809920/1697126130783.png?ex=653a8c07&is=65281707&hm=02d468b6f24da646e4176affaedc2f2b9f433a6e29986fa7c86e1d8f2e7df336&" alt="SafeZone" style="object-fit: contain; width: 200px;">
+                      </a>
+                    </div>
                   <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="#" data-target="home-content">Home</a></li>
-                      <li><a href="#" data-target="chatbot-content">Chatbot</a></li>
-                      <li><a href="#" data-target="membres-content">Les Membres</a></li>
-                      <li><a href="#" data-target="messagerie-content">Messagerie</a></li>
-                      <li><a href="#" data-target="qui-contacter-content">Qui Contacter</a></li>
-                      <li><a href="#" data-target="parametres-content">Paramètres</a></li>
-                      <li><a href="#" data-target="besoin-daide-content">Besoin d'aide ?</a></li>
+                      <li class="active"><a href="#" data-target="home-content"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Home</a></li>
+                      <li><a href="#" data-target="chatbot-content"><i class="fa fa-commenting" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Chatbot</a></li>
+                      <li><a href="#" data-target="membres-content"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Les Membres</a></li>
+                      <li><a href="#" data-target="messagerie-content"><i class="fa fa-address-book" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Messagerie</a></li>
+                      <li><a href="#" data-target="qui-contacter-content"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Qui Contacter</a></li>
+                      <li><a href="#" data-target="parametres-content"><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Paramètres</a></li>
+                      <li><a href="#" data-target="besoin-daide-content"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Besoin d'aide ?</a></li>
                     </ul>
                     
                   </div>
@@ -440,20 +462,38 @@
                       <div class="col-md-4 col-sm-6 item">
                         <div class="box"><i class="fa fa-balance-scale icon" style="color:#ac6ef6;"></i>
                           <h3 class="name">Les lois</h3>
-                          <p class="description"><p><b>la France a adopté des mesures strictes pour éradiquer le harcèlement sexuel dans le milieu professionnel. Ces lois visent à créer un environnement respectueux où chacun peut travailler sans craindre le harcèlement.</b></p>
+                          <p class="description"><p class="text-justify"><b>la France a adopté des mesures strictes pour éradiquer le harcèlement sexuel dans le milieu professionnel. Ces lois visent à créer un environnement respectueux où chacun peut travailler sans craindre le harcèlement.</b></p>
                           <ul>
-                            <li><b>Code du travail (Article L1153-1) :</b> Définit le harcèlement sexuel comme des propos ou comportements à connotation sexuelle répétés portant atteinte à la dignité ou créant une situation intimidante, hostile ou offensante.</li>
-                            <li><b>Code pénal (Article 222-33) :</b> Prévoit des peines pouvant aller jusqu'à deux ans d'emprisonnement et 30 000 euros d'amende pour les auteurs de harcèlement sexuel, avec des sanctions plus sévères en cas de circonstances aggravantes.</li>
-                            <li><b>Loi du 6 août 2012 :</b> Renforce les sanctions contre le harcèlement sexuel au travail, établissant des peines plus sévères et clarifiant les définitions pour assurer une meilleure protection des victimes.</li>
-                            <li><b>Protection des victimes :</b> Les lois en France garantissent l'anonymat des plaignants et interdisent toute forme de représailles contre les victimes de harcèlement sexuel.</li>
-                            <li><b>Responsabilité des employeurs :</b> Les employeurs sont tenus de protéger leurs employés contre le harcèlement sexuel en mettant en place des mesures de prévention, de formation et de sensibilisation.e.</li>
+                            <li class="text-justify"><b>Code du travail (Article L1153-1) :</b> Définit le harcèlement sexuel comme des propos ou comportements à connotation sexuelle répétés portant atteinte à la dignité ou créant une situation intimidante, hostile ou offensante.</li>
+                            <li class="text-justify"><b>Code pénal (Article 222-33) :</b> Prévoit des peines pouvant aller jusqu'à deux ans d'emprisonnement et 30 000 euros d'amende pour les auteurs de harcèlement sexuel, avec des sanctions plus sévères en cas de circonstances aggravantes.</li>
+                            <li class="text-justify"><b>Loi du 6 août 2012 :</b> Renforce les sanctions contre le harcèlement sexuel au travail, établissant des peines plus sévères et clarifiant les définitions pour assurer une meilleure protection des victimes.</li>
+                            <li class="text-justify"><b>Protection des victimes :</b> Les lois en France garantissent l'anonymat des plaignants et interdisent toute forme de représailles contre les victimes de harcèlement sexuel.</li>
+                            <li class="text-justify"><b>Responsabilité des employeurs :</b> Les employeurs sont tenus de protéger leurs employés contre le harcèlement sexuel en mettant en place des mesures de prévention, de formation et de sensibilisation.e.</li>
                           </ul></p>
                         </div>
                       </div>
                       <div class="col-md-4 col-sm-6 item">
                         <div class="box"><i class="fa fa-pie-chart icon" style="color:#ac6ef6;"></i>
                           <h3 class="name">Les statistiques</h3>
-                          <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu.</p>
+                          <p class="description">
+                            <p class="description">
+                              <!-- Graphique 1 -->
+                              <canvas id="chart1" class="stat-chart"  width="200" height="200"></canvas>
+                              <!-- Texte graph 1 -->
+                              <p>80% des français et des françaises pensent que les sanctions et lois existantes sont insuffisantes ou mal appliquées</p>
+                              
+                              <!-- Graphique 2 -->
+                              <canvas id="chart2" class="stat-chart"  width="200" height="200"></canvas>
+                              <p>1/3 des hommes font davantage attention à ne pas être sexistes dans leurs actes et propos depuis #MeToo</p>
+
+                              <!-- Graphique 3 -->
+                              <canvas id="chart3" class="stat-chart"  width="200" height="200"></canvas>
+                              <p>53% des français et des françaises considèrent que les actes et propos sexistes sont en augmentation en France</p>
+                              
+                              <canvas id="chart4" class="stat-chart"  width="200" height="200"></canvas>
+                              <p>46% des femmes ont déjà été victimes d'actes ou de propos sexistes au travail</p>
+                            </p>
+                          </p>
                         </div>
                       </div>
                       <div class="col-md-4 col-sm-6 item">
@@ -462,18 +502,18 @@
                           <p class="description"><p>
                             <b>La prévention du harcèlement sexuel au travail implique plusieurs étapes clés. </b>
                             <ul>
-                              <li>Tout d'abord, il est essentiel de sensibiliser les employés en organisant des séances de formation régulières sur les comportements appropriés et inappropriés sur le lieu de travail. </li>
-                              <li>les employeurs doivent établir des politiques claires et accessibles concernant le harcèlement sexuel, comprenant des définitions précises et des procédures de signalement. </li>
-                              <li>
+                              <li class="text-justify">Tout d'abord, il est essentiel de sensibiliser les employés en organisant des séances de formation régulières sur les comportements appropriés et inappropriés sur le lieu de travail. </li>
+                              <li class="text-justify">les employeurs doivent établir des politiques claires et accessibles concernant le harcèlement sexuel, comprenant des définitions précises et des procédures de signalement. </li>
+                              <li class="text-justify">
                                 Il est crucial de créer un environnement où les employés se sentent en confiance pour signaler le harcèlement, en mettant en place des mécanismes de signalement confidentiels et accessibles.
                                 <br>
                                 <ul>
-                                  <li>Lorsqu'un rapport est fait, il est impératif de mener une enquête approfondie et impartiale pour établir les faits.</li>
-                                  <li>Les sanctions appropriées doivent être prises en cas de harcèlement avéré, et les victimes ainsi que les témoins doivent être protégés contre toute forme de représailles.</li>
-                                  <li>Les entreprises doivent offrir un soutien aux victimes, qu'il s'agisse de conseils psychologiques ou juridiques.</li>
+                                  <li class="text-justify">Lorsqu'un rapport est fait, il est impératif de mener une enquête approfondie et impartiale pour établir les faits.</li>
+                                  <li class="text-justify">Les sanctions appropriées doivent être prises en cas de harcèlement avéré, et les victimes ainsi que les témoins doivent être protégés contre toute forme de représailles.</li>
+                                  <li class="text-justify">Les entreprises doivent offrir un soutien aux victimes, qu'il s'agisse de conseils psychologiques ou juridiques.</li>
                                 </ul>
                               </li>
-                              <li>Enfin, un suivi régulier de l'efficacité des politiques et des formations doit être effectué pour s'assurer que l'entreprise reste proactive dans la prévention du harcèlement sexuel.</li>
+                              <li class="text-justify">Enfin, un suivi régulier de l'efficacité des politiques et des formations doit être effectué pour s'assurer que l'entreprise reste proactive dans la prévention du harcèlement sexuel.</li>
                             </ul>
                           </p></p>
                         </div>
@@ -696,7 +736,7 @@
                         <div class="input-group mb-3">
                           <input type="text" class="form-control" placeholder="Rechercher...">
                         </div>
-                        <div class="list-group scrollable">
+                        <div class="list-group list-group-striped scrollable">
                           <!-- ... Contacts ... -->
                           <a href="#" class="list-group-item list-group-item-action">
                             <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -919,7 +959,61 @@
         </div>
       </div>
     </div>
-    
+    <script>
+      // Configuration des graphiques pour la partie statistiques (dans Home)
+  var ctx1 = document.getElementById('chart1').getContext('2d');
+  var chart1 = new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+      labels: ['', ''],
+      datasets: [{
+        data: [20, 80],
+        backgroundColor: ['#36A2EB', '#FF6384']
+      }]
+    },
+    options : {
+      legend: {
+        display: false
+      }
+    }
+  });
+
+  var ctx2 = document.getElementById('chart2').getContext('2d');
+  var chart2 = new Chart(ctx2, {
+    type: 'doughnut',
+    data: {
+      labels: ['', ''],
+      datasets: [{
+        data: [33, 67],
+        backgroundColor: ['#36A2EB', '#FF6384']
+      }]
+    }
+  });
+
+  var ctx3 = document.getElementById('chart3').getContext('2d');
+  var chart3 = new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+      labels: ['', ''],
+      datasets: [{
+        data: [53, 47],
+        backgroundColor: ['#36A2EB', '#FF6384']
+      }]
+    }
+  });
+
+  var ctx4 = document.getElementById('chart4').getContext('2d');
+  var chart4 = new Chart(ctx4, {
+    type: 'doughnut',
+    data: {
+      labels: ['', ''],
+      datasets: [{
+        data: [46, 54],
+        backgroundColor: ['#36A2EB', '#FF6384']
+      }]
+    }
+  });
+    </script>
     <script>
       $(document).ready(function(){
         $('.nav li a').on('click', function(e){
