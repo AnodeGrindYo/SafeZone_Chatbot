@@ -71,3 +71,14 @@ sudo service nginx restart
 
 With SafeBot now deployed, you're not alone in confronting workplace harassment. We're here with you, every step of the way.
 
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162081297175420989/image.png?ex=653aa38b&is=65282e8b&hm=f022709b75e34834e69edb799fa95d1c970d99174fc11ba4727487324ae88ffa&)
+
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162082969729630360/image.png?ex=653aa51a&is=6528301a&hm=b8398a48de7620cbb20fe2a299147e463ecfc83070966c802b981c52d97002a7&)
+
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162081602109722705/image.png?ex=653aa3d4&is=65282ed4&hm=713b3870cb93c17af0dfde82d2b472cf36b9eeb4bbe928daa2f9a3758fb02578&)
+
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162081723153141801/image.png?ex=653aa3f1&is=65282ef1&hm=65c189f61e783f007eaea64266e907faca3b3e6fc76278891558fdfe910ff9b2&)
+
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162081834457387169/image.png?ex=653aa40b&is=65282f0b&hm=05078574acc78dc6bc3b70a3cc3b90567b8959359c034a7fc9a1d312fd2336a5&)
+
+![](https://cdn.discordapp.com/attachments/932672918859702355/1162081980142342256/image.png?ex=653aa42e&is=65282f2e&hm=44433602d6ff62fdb6e7fafedfd487a844f0a60e05528224410dde921e992aa4&)
