@@ -71,6 +71,8 @@ sudo service nginx restart
 
 With SafeBot now deployed, you're not alone in confronting workplace harassment. We're here with you, every step of the way.
 
+![](https://cdn.discordapp.com/attachments/1160907035311886339/1162223545393360946/demo.gif?ex=653b2806&is=6528b306&hm=8a1c95889300b3e3f012c38e3d6831633fbfb18b3eb4de80e974a00c06fe89c2&)
+
 ![](https://cdn.discordapp.com/attachments/932672918859702355/1162081297175420989/image.png?ex=653aa38b&is=65282e8b&hm=f022709b75e34834e69edb799fa95d1c970d99174fc11ba4727487324ae88ffa&)
 
 ![](https://cdn.discordapp.com/attachments/932672918859702355/1162082969729630360/image.png?ex=653aa51a&is=6528301a&hm=b8398a48de7620cbb20fe2a299147e463ecfc83070966c802b981c52d97002a7&)
