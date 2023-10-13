@@ -3,6 +3,9 @@
 ## Introduction
 - Application web responsive dédiée aux entreprises, visant à apporter un soutien immédiat et anonyme aux victimes de harcèlement sexuel via un chatbot intelligent.
 
+## Pourquoi un chatbot ?
+Nous sommes parti du constat que l'écrasante majorité des personnes victimes ne portaient pas plainte. Parmi les raisons, on retrouve la honte ou la peur d'être jugée, peu de formation sur le sujet et les démarches à effectuer. Dans le même temps, depuis l'apparition des LLM pour le grand public, il a été constaté qu'il pouvait parfois être plus facile de se confier à un chatbot qu'à un humain : le chatbot ne nous juge pas. Le choix d'un LLM nous paraît assez évident, car il permet de converser en langage naturel, et nous pouvons facilement le spécialiser pour notre cause.
+
 ## Choix Stratégiques
 - **Appli Web** : Accessibilité universelle sans nécessité d'installation, accessible sur tout appareil connecté, ce qui encourage l'utilisation et garantit une aide accessible en tout temps.
 - **Chatbot basé sur LLM** : Fournit des interactions naturelles, compréhensibles et empathiques, cruciales pour les sujets sensibles comme le harcèlement sexuel.
