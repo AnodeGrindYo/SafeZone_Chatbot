@@ -13,6 +13,7 @@ Notre solution est un chatbot intelligent qui aide à identifier et à fournir d
 - **Réduction des coûts** : Réduit la charge sur le personnel de support humain.
 - **Amélioration continue** : Apprend et s'améliore avec le temps pour fournir des réponses plus précises et utiles.
 - **Conformité réglementaire** : Aide les entreprises à rester conformes aux réglementations sur la prévention du harcèlement.
+- **Réduction des coûts cachés**: Le harcèlement sexuel est un fléau pour les entreprises et entraîne de nombreux coûts cachés : turn-over, démotivation, arrêts maladie, baisse de la productivité. Notre application aide à résoudre ces problèmes 
 
 ## Coût de Développement et d'Opération
 - Développement initial : $X
