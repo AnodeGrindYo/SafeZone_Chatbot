@@ -1,7 +1,14 @@
 # Business Plan pour le projet Chatbot Anti-Harcèlement
 
 ## Executive Summary
-Notre solution est un chatbot intelligent qui aide à identifier et à fournir de l'assistance en cas de harcèlement sexuel en milieu professionnel. Il est conçu pour être intégré dans les systèmes existants des entreprises, fournissant ainsi une première ligne de support et d'information pour les employés concernés.
+Notre solution est une application web qui met à disposition différents outils dont un chatbot intelligent qui aide à identifier et à fournir de l'assistance en cas de harcèlement sexuel en milieu professionnel. Il est conçu pour être intégré dans les systèmes existants des entreprises, fournissant ainsi une première ligne de support et d'information pour les employés concernés.
+
+## Pourquoi un chatbot ?
+Nous sommes parti du constat que l'écrasante majorité des personnes victimes ne portaient pas plainte. Parmi les raisons, on retrouve la honte ou la peur d'être jugée, peu de formation sur le sujet et les démarches à effectuer. Dans le même temps, depuis l'apparition des LLM pour le grand public, il a été constaté qu'il pouvait parfois être plus facile de se confier à un chatbot qu'à un humain : le chatbot ne nous juge pas. Le choix d'un LLM nous paraît assez évident, car il permet de converser en langage naturel, et nous pouvons facilement le spécialiser pour notre cause.
+
+## Choix Stratégiques
+- **Appli Web** : Accessibilité universelle sans nécessité d'installation, accessible sur tout appareil connecté, ce qui encourage l'utilisation et garantit une aide accessible en tout temps.
+- **Chatbot basé sur LLM** : Fournit des interactions naturelles, compréhensibles et empathiques, cruciales pour les sujets sensibles comme le harcèlement sexuel.
 
 ## Marché Cible
 - Entreprises de taille moyenne à grande
