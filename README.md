@@ -1,3 +1,5 @@
+NB : this has been made in a few hours, for a workshop at school. Don't implement this as is !
+
 # SafeBot: Your Companion in Combating Workplace Sexual Harassment
 
 SafeBot embodies the pinnacle of artificial intelligence meeting empathy, manifest in a web application aimed at providing solace and actionable help to individuals navigating the murky waters of workplace sexual harassment. With a rich repository of resources and a compassionate chatbot powered by a Large Language Model (LLM) - LLAMA-2-CPP, SafeBot is not just an app, but a companion in your journey towards justice and healing.
